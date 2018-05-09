@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	db.ConnectAndInit(new(models.User), new(models.Article))
+	db.ConnectAndInit(new(models.User), new(models.Content))
 	beego.Run()
 }

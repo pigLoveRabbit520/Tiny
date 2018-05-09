@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/jinzhu/gorm"
-	"log"
 	"errors"
 )
 
@@ -33,14 +32,12 @@ func Init(models ...interface{}) error {
 	return nil
 }
 
-func Connect(user, password, host string, dbPort, dbname string) {
+func Connect(user, password, host string, dbPort, dbName string) {
 	db, err := gorm.Open("mysql",
-		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", user, password, host, dbPort, dbname))
+		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", user, password, host,
+			dbPort, dbName))
 	if err != nil {
-		log.Fatalln(err)
-	}
-	if db.Error != nil {
-		log.Fatalln(db.Error)
+		panic("connect database failed " + err.Error())
 	}
 	DB = db
 }
