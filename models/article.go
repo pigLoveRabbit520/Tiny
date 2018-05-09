@@ -1,14 +1,14 @@
 package models
 
-type Article struct {
-	Aid          int    `gorm:"primary_key"`
+type Content struct {
+	Cid          int    `gorm:"primary_key"`
 	Title        string `gorm:"type:varchar(200);"`
 	Slug         string `gorm:"type:varchar(200);unique_index"`
 	Created      uint32 `gorm:"index"`
 	Modified     uint32
 	Text         string `gorm:"type:longtext"`
-	Order        uint
-	AuthorId     uint   `gorm:"column:authorId"`
+	Order        uint   `gorm:"type:int(10) unsigned"`
+	AuthorId     uint   `gorm:"column:authorId;type:int(10) unsigned"`
 	Template     string `gorm:"type:varchar(32)"`
 	Type         string `gorm:"type:varchar(16);default:'post'"`
 	Status       string `gorm:"type:varchar(16);default:'publish'"`
