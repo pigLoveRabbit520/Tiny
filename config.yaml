@@ -1,0 +1,63 @@
+port: 9005
+
+check_token: false
+# replay_report_url: "http://127.0.0.1:9001/api/jiyin/upload/data" # 将硬件上报在一次发送到别的服务上
+print:
+  res: false
+
+image:
+  dir: "public/avatar"
+  host: "https://api.reewoow.com"
+  servers:
+    "/avatar": "public/avatar"
+    "/uploads/avatar": "/alidata/www/onethink/Uploads/Avatar"
+
+cache:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+
+db:
+  host: "localhost"
+  user: "root"
+  name: "jiyin"
+  password: "123456mh"
+
+admin:
+  name: "admin"
+  phone: "admin"
+  password: "dyuKRXka0u&=bhC"
+
+umeng:
+  push_url: "http://msg.umeng.com/api/send"
+  android:
+    appkey:  "583bf59b07fe653a80001bb4"
+    mastersecret: "mfklwdhewvhxbnicrqonjuqjhmr65hoj"
+  ios:
+    appkey: "583bf460c62dca07b3000a54"
+    mastersecret: "x44ei7qct0iv8ckfb6gwbfy6xegpfwk4"
+
+sms:
+  apikey: "eb2323adc7bb33eab35a4d4f9843f425"
+  url: "http://sms-api.luosimao.com/v1/send.json"
+  template:  "验证码：%s ，三分钟内有效。【吉印水族科技】"
+
+ys:
+  appkey: "f608ce64fadd497e817f6651a1c99844"
+  appsecret: "578de77d772dcbc4f34f62d9ff9f3b5e"
+  account_prefix: "user"
+
+qiniu:
+  accesskey: "NFduyvOWdThu8sKENDdUWnxNwf3XnR63bkkkhLuP"
+  secretkey: "Ku48qaWVs2JnU2hxYL7sE29szfv4ZHUFqrpypAOJ"
+  host: "https://jiyinfile.reewoow.com"
+  bucket: "jiyin"
+
+wx:
+  appid: "wx0c45aef88a560a82"
+  appsecret: "15c8439ca97b529d23e308cf33ddd22e"
+
+baidu_lss:
+  accesskey: "0cb4cdc8beea4c269938be8eccacb4e8"
+  secretkey: "6c9e7bc495974c60bc97480c56454ff8"
+  playAuthKey: "xjiurxnespfrilrsjmevn9eciyng26x9"

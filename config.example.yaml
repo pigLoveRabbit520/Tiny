@@ -1,0 +1,8 @@
+port: 9005
+
+db:
+  host: ""
+  user: ""
+  name: ""
+  password: ""
+  prefix: ""
