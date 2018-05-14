@@ -6,7 +6,13 @@ import (
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	ns := beego.NewNamespace("/admin",
 
-    beego.Router("/user/:uid([0-9]+", &controllers.UserController{})
+		beego.NSNamespace("/contents",
+			beego.NSInclude(
+				&controllers.ContentController{},
+			),
+		),
+	)
+	beego.AddNamespace(ns)
 }

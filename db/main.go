@@ -1,25 +1,29 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/jinzhu/gorm"
-	"errors"
 )
 
 var (
-	DB *gorm.DB
-	ErrDBNull = errors.New("db is null, please connect First")
+	DB        *gorm.DB
+	ErrDBNull = errors.New("db is null, please connect first")
 )
 
 func ConnectAndInit(models ...interface{}) {
-	dbUser := beego.AppConfig.String("mysqluser")
-	dbPass := beego.AppConfig.String("mysqlpass")
-	dbHost := beego.AppConfig.String("mysqlhost")
-	dbName := beego.AppConfig.String("mysqldb")
-	dbPort := beego.AppConfig.String("mysqlport")
+	dbUser := beego.AppConfig.String("dbUser")
+	dbPass := beego.AppConfig.String("dbPass")
+	dbHost := beego.AppConfig.String("dbHost")
+	dbName := beego.AppConfig.String("dbName")
+	dbPort := beego.AppConfig.String("dbPort")
+	dbPrefix := beego.AppConfig.String("dbPrefix")
+
+	gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
+		return dbPrefix + defaultTableName;
+	}
 	Connect(dbUser, dbPass, dbHost, dbPort, dbName)
-	DB.SingularTable(true)
 	Init(models...)
 }
 

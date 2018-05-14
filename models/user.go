@@ -14,7 +14,7 @@ type User struct {
 	Created    int    `gorm:"type:int(10) unsigned"`
 	Activated  int    `gorm:"type:int(10) unsigned"`
 	Logged     int    `gorm:"type:int(10) unsigned"`
-	Group      string `gorm:"type:varchar(16)"`
+	Group      string `gorm:"type:varchar(16);default:'visitor'"` // visitor || administrator
 	AuthCode   string `gorm:"type:varchar(40)"`
 }
 
