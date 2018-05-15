@@ -4,7 +4,7 @@ import "testing"
 
 func TestEncrypt(t *testing.T) {
 	KEY := "LKHlhb899Y09olUi"
-	var plainTxt = "salamander"
+	var plainTxt = "fsdgfghhghgjdkj9934"
 	enTxt, _ := Encrypt(plainTxt, []byte(KEY))
 	res, err := Decrypt(enTxt, []byte(KEY))
 	if err != nil {

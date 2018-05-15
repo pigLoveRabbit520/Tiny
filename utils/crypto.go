@@ -60,7 +60,7 @@ func Encrypt(text string, key []byte) (string, error) {
 
 	cfb := cipher.NewCFBEncrypter(block, iv)
 	cfb.XORKeyStream(ciphertext[aes.BlockSize:], []byte(msg))
-	finalMsg := removeBase64Padding(base64.URLEncoding.EncodeToString(ciphertext))
+	finalMsg := removeBase64Padding(base64.StdEncoding.EncodeToString(ciphertext))
 	return finalMsg, nil
 }
 
@@ -70,7 +70,7 @@ func Decrypt(text string, key []byte) (string, error) {
 		return "", err
 	}
 
-	decodedMsg, err := base64.URLEncoding.DecodeString(addBase64Padding(text))
+	decodedMsg, err := base64.StdEncoding.DecodeString(addBase64Padding(text))
 	if err != nil {
 		return "", err
 	}
