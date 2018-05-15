@@ -20,6 +20,8 @@ func main() {
 
 	adminRouter := router.Group("/admin")
 	{
+		adminRouter.GET("/login", controllers.Login)
+
 		adminRouter.GET("/contents", controllers.GetContents)
 	}
 
