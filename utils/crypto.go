@@ -4,67 +4,24 @@ import (
 	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/rand"
 	"encoding/base64"
 	"errors"
+	"io"
 	"strings"
 )
 
-const (
-	KEY = "R1XBXVOyZZWnAAkf"
-	IV  = "h563JYDuyLfeoAam"
-)
+func addBase64Padding(value string) string {
+	m := len(value) % 4
+	if m != 0 {
+		value += strings.Repeat("=", 4-m)
+	}
 
-// AES-128-cbc
-// AES加密数据块分组长度必须为128bit(byte[16])
-// 密钥长度可以是128bit(byte[16])、192bit(byte[24])、256bit(byte[32])中的任意一个
-// 加密结果最后转成base64
-func En(plainText string) string {
-	result, _ := encryptCBC([]byte(plainText), []byte(KEY), []byte(IV))
-	return base64.StdEncoding.EncodeToString(result)
+	return value
 }
 
-func De(text string) (string, error) {
-	decodedMsg, err := base64.URLEncoding.DecodeString(addBase64Padding(text))
-	if err != nil {
-		return "", err
-	}
-	return decryptCBC(decodedMsg, KEY)
-}
-
-func encryptCBC(plainText []byte, key, IV []byte) (cipherText []byte, err error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		panic(err)
-	}
-	blockSize := block.BlockSize()
-	plainText = pad(plainText)
-	blockMode := cipher.NewCBCEncrypter(block, IV[:blockSize])
-	crypted := make([]byte, len(plainText))
-	blockMode.CryptBlocks(crypted, plainText)
-	return crypted, nil
-}
-
-func decryptCBC(decodedMsg []byte, key []byte) (plaintext string, err error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return "", err
-	}
-
-	if (len(decodedMsg) % aes.BlockSize) != 0 {
-		return "", errors.New("blocksize must be multipe of decoded message length")
-	}
-
-	msg := decodedMsg[aes.BlockSize:]
-
-	cfb := cipher.NewCFBDecrypter(block, []byte(IV))
-	cfb.XORKeyStream(msg, msg)
-
-	unpadMsg, err := unpad(msg)
-	if err != nil {
-		return "", err
-	}
-
-	return string(unpadMsg), nil
+func removeBase64Padding(value string) string {
+	return strings.Replace(value, "=", "", -1)
 }
 
 func pad(src []byte) []byte {
@@ -84,11 +41,54 @@ func unpad(src []byte) ([]byte, error) {
 	return src[:(length - unpadding)], nil
 }
 
-func addBase64Padding(value string) string {
-	m := len(value) % 4
-	if m != 0 {
-		value += strings.Repeat("=", 4-m)
+// AES-128-cbc
+// AES加密数据块分组长度必须为128bit(byte[16])
+// 密钥长度可以是128bit(byte[16])、192bit(byte[24])、256bit(byte[32])中的任意一个
+// 加密结果最后转成base64
+func Encrypt(text string, key []byte) (string, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return "", err
 	}
 
-	return value
+	msg := pad([]byte(text))
+	ciphertext := make([]byte, aes.BlockSize+len(msg))
+	iv := ciphertext[:aes.BlockSize]
+	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
+		return "", err
+	}
+
+	cfb := cipher.NewCFBEncrypter(block, iv)
+	cfb.XORKeyStream(ciphertext[aes.BlockSize:], []byte(msg))
+	finalMsg := removeBase64Padding(base64.URLEncoding.EncodeToString(ciphertext))
+	return finalMsg, nil
+}
+
+func Decrypt(text string, key []byte) (string, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return "", err
+	}
+
+	decodedMsg, err := base64.URLEncoding.DecodeString(addBase64Padding(text))
+	if err != nil {
+		return "", err
+	}
+
+	if (len(decodedMsg) % aes.BlockSize) != 0 {
+		return "", errors.New("blocksize must be multipe of decoded message length")
+	}
+
+	iv := decodedMsg[:aes.BlockSize]
+	msg := decodedMsg[aes.BlockSize:]
+
+	cfb := cipher.NewCFBDecrypter(block, iv)
+	cfb.XORKeyStream(msg, msg)
+
+	unpadMsg, err := unpad(msg)
+	if err != nil {
+		return "", err
+	}
+
+	return string(unpadMsg), nil
 }
