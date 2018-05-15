@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
 	"github.com/salamander-mh/SalamanderBlog/config"
+	"fmt"
 )
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 		adminRouter.GET("/contents", controllers.GetContents)
 	}
 
-	router.Run(":8080")
+	router.Run(fmt.Sprintf(":%d", conf.Port))
 }
 
 func initConfig() config.Config {
