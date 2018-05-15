@@ -33,7 +33,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	token, err := utils.Encrypt(fmt.Sprintf("%d:%s", user.Uid, time.Now().Unix() + TOKEN_EXPIRE_TIME),
-		[]byte(config.Conf.Key))
+		[]byte(config.Conf.EncryptKey))
 	c.JSON(200, ApiRes{
 		Errcode: 0,
 		Errmsg:  "登录成功",

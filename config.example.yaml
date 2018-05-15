@@ -1,5 +1,5 @@
 port: 9005
-key: ""
+encryptKey: ""
 
 db:
   host: ""

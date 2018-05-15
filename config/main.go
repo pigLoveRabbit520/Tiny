@@ -8,16 +8,16 @@ import (
 var Conf Config
 
 type Config struct {
-	Port int    `json:"port"`
-	Key  string `json:"key"`
+	Port       int    `yaml:"port"`
+	EncryptKey string `yaml:"encryptKey"`
 	DB         struct {
-		Host     string `json:"host"`
-		Port     uint   `json:"port"`
-		User     string `json:"usr"`
-		Name     string `json:"name"`
-		Password string `json:"password"`
-		Prefix   string `json:"prefix"`
-	} `json:"db"`
+		Host     string `yaml:"host"`
+		Port     uint   `yaml:"port"`
+		User     string `yaml:"usr"`
+		Name     string `yaml:"name"`
+		Password string `yaml:"password"`
+		Prefix   string `yaml:"prefix"`
+	} `yaml:"db"`
 }
 
 func IniConfig() error {
