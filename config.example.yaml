@@ -1,4 +1,5 @@
 port: 9005
+key: ""
 
 db:
   host: ""

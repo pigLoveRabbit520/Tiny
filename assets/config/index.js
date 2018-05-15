@@ -11,41 +11,41 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/login': {
-            target: 'http://localhost',
+        '/admin/login': {
+            target: 'http://localhost:8080',
             changeOrigin: true,
             pathRewrite: {
                 '^/login': '/login'
             }
         },
         '/user/info': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
         },
         '/public_account': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
             pathRewrite: {
                 '^/public_account': '/public_account'
             }
         },
         '/public_account/push_urls': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
             pathRewrite: {
                 '^/public_account/push_urls': '/public_account/push_urls'
             }
         },
         '/public_account_article': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
         },
         '/dashboard': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
         },
         '/settings': {
-            target: 'http://localhost',
+            target: 'http://localhost:8080',
             changeOrigin: true,
         }
     },
