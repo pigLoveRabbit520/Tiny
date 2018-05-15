@@ -34,7 +34,7 @@
         data() {
             const validateUsername = (rule, value, callback) => {
                 if (!isvalidUsername(value)) {
-                    callback(new Error('用户名长度不少于6位'))
+                    callback(new Error('用户名长度不少于5位'))
                 } else {
                     callback()
                 }

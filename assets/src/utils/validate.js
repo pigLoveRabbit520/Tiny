@@ -1,7 +1,7 @@
 
 
 export function isvalidUsername(str) {
-    return str.trim().length >= 6;
+    return str.trim().length >= 5;
 }
 
 /* 合法uri*/
