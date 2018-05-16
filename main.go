@@ -12,7 +12,15 @@ import (
 
 func main() {
 	config.IniConfig()
-	db.ConnectAndInit(config.Conf, new(models.User), new(models.Content))
+	db.ConnectAndInit(
+		config.Conf,
+		new(models.User),
+		new(models.Content),
+		new(models.Comment),
+		new(models.Meta),
+		new(models.Option),
+		new(models.Relationship),
+	)
 
 	router := gin.Default()
 	// recovers from any panics and writes a 500 if there was one

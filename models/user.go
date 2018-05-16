@@ -7,15 +7,15 @@ import (
 )
 
 type User struct {
-	Uid        int    `gorm:"primary_key"  json:"uid"`
+	Uid        uint   `gorm:"primary_key"  json:"uid"`
 	Name       string `gorm:"type:varchar(32);unique" json:"name"`
 	Password   string `gorm:"type:varchar(32)" json:"_"`
 	Mail       string `gorm:"type:varchar(200)" json:"mail"`
 	Url        string `gorm:"type:varchar(200)" json:"url"`
 	ScreenName string `gorm:"type:varchar(32);column:screenName" json:"screenName"`
-	Created    int    `gorm:"type:int(10) unsigned" json:"created"`
-	Activated  int    `gorm:"type:int(10) unsigned" json:"activated"`
-	Logged     int    `gorm:"type:int(10) unsigned" json:"logged"`
+	Created    uint   `gorm:"type:int(10) unsigned" json:"created"`
+	Activated  uint   `gorm:"type:int(10) unsigned" json:"activated"`
+	Logged     uint   `gorm:"type:int(10) unsigned" json:"logged"`
 	Group      string `gorm:"type:varchar(16);default:'visitor'" json:"group"` // visitor || administrator
 	AuthCode   string `gorm:"type:varchar(40)" json:"authCode"`
 }
