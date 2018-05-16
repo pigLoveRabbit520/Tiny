@@ -15,11 +15,17 @@ func main() {
 	db.ConnectAndInit(config.Conf, new(models.User), new(models.Content))
 
 	router := gin.Default()
+	// recovers from any panics and writes a 500 if there was one
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+
 	router.POST("/admin/login", controllers.Login)
 
 	adminRouter := router.Group("/admin")
+	adminRouter.Use(controllers.UserAuth())
 	{
 		adminRouter.GET("/contents", controllers.GetContents)
+		adminRouter.GET("/user/info", controllers.GetUserInfo)
 	}
 
 	router.Run(fmt.Sprintf(":%d", config.Conf.Port))

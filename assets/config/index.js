@@ -18,33 +18,33 @@ module.exports = {
                 '^/login': '/login'
             }
         },
-        '/user/info': {
+        '/admin/user/info': {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
-        '/public_account': {
+        '/admin/public_account': {
             target: 'http://localhost:8080',
             changeOrigin: true,
             pathRewrite: {
                 '^/public_account': '/public_account'
             }
         },
-        '/public_account/push_urls': {
+        '/admin/public_account/push_urls': {
             target: 'http://localhost:8080',
             changeOrigin: true,
             pathRewrite: {
                 '^/public_account/push_urls': '/public_account/push_urls'
             }
         },
-        '/public_account_article': {
+        '/admin/public_account_article': {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
-        '/dashboard': {
+        '/admin/dashboard': {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
-        '/settings': {
+        '/admin/settings': {
             target: 'http://localhost:8080',
             changeOrigin: true,
         }
