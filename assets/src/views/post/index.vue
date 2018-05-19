@@ -20,11 +20,15 @@
                   label="作者">
           </el-table-column>
           <el-table-column
-                  prop="category"
+                  prop="meta_cat"
                   label="分类">
+                <template slot-scope="scope">
+                    <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
+                </template>
           </el-table-column>
           <el-table-column
                   prop="created"
+                  :formatter="getDate"
                   label="发布日期">
           </el-table-column>]
       </el-table>
@@ -50,15 +54,16 @@ export default {
     components: { ElRow },
     data() {
         return {
-            list: null,
             listLoading: true,
             postsTotal: 0,
             pageSize: 15,
             currentPage: 1,
             posts: [],
+            cates: [],
         }
     },
     created() {
+        document.title = "文章管理"
         this.getPosts()
     },
     methods: {
@@ -66,6 +71,8 @@ export default {
             this.listLoading = true
             getList(params).then(response => {
                 this.posts = response.data.posts
+                this.cates = response.data.cates
+                this.setPostCates()
                 this.postsTotal = response.data.total
                 this.listLoading = false
             })
@@ -75,8 +82,43 @@ export default {
                 page: val
             })
         },
-        onSubmit() {
-            this.posts(this.article)
+        setPostCates() {
+            let cateMap = {}
+            for (let cate of this.cates) {
+                cateMap[cate.mid] = cate
+            }
+            for (let post of this.posts) {
+                post.cates = []
+                if (post.meta_cat) {
+                    let ids = post.meta_cat.split(",")
+                    for (let id of ids) {
+                        post.cates.push(cateMap[id])
+                    }
+                }
+            }
+        },
+        getDate(row, col) {
+            let value = row[col.property];
+            let formatter = function (v) {
+                return ('0' + v).substr(-2)
+            }
+            if (value) {
+                let now = new Date()
+                let date = new Date(value * 1000);
+                let year = date.getFullYear();
+                let month = formatter(date.getMonth() + 1);
+                let day = formatter(date.getDate());
+                let hours = formatter(date.getHours());
+                let minutes = formatter(date.getMinutes());
+                let seconds = formatter(date.getSeconds());
+                if (now.getFullYear() == year) {
+                     return `${month}-${day} ${hours}:${minutes}:${seconds}`
+                } else {
+                     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+                }
+            } else {
+                return ""
+            }
         }
     }
 }

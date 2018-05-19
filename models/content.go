@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"github.com/salamander-mh/SalamanderBlog/config"
 	"github.com/salamander-mh/SalamanderBlog/db"
-	"strconv"
-	"strings"
 )
 
 type Content struct {
@@ -42,8 +40,7 @@ type ContentForAdmin struct {
 	Created     uint32 `json:"created"`
 	ScreenName  string `json:"screenName" gorm:"column:screenName"`
 	CommentsNum uint   `json:"commentsNum" gorm:"column:commentsNum"`
-	Metas       []Meta `json:"metas"`
-	MetasCat    string `gorm:"column:meta_cat"`
+	MetaCat     string `json:"meta_cat" gorm:"column:meta_cat"`
 }
 
 func GetPosts(page int) ([]ContentForAdmin, int, error) {
@@ -51,14 +48,8 @@ func GetPosts(page int) ([]ContentForAdmin, int, error) {
 	tbContent := prefix + "contents"
 	tbUser := prefix + "users"
 	tbRelation := prefix + "relationships"
-	var metasAll []Meta
-	var metaMap = make(map[uint]Meta)
 	var posts []ContentForAdmin
 	var postsCount int
-	db.DB.Select("mid, name").Where("type = ?", "category").Find(&metasAll)
-	for _, meta := range metasAll {
-		metaMap[meta.Mid] = meta
-	}
 	q := db.DB.Raw(fmt.Sprintf(`SELECT cid, title, c.created, commentsNum, u.screenName,
 		(SELECT GROUP_CONCAT(mid) FROM %s r WHERE r.cid = c.cid) AS meta_cat		
 		FROM %s c LEFT JOIN %s u ON c.authorId = u.uid WHERE c.type = 'post' ORDER BY created DESC %s`,
@@ -67,14 +58,6 @@ func GetPosts(page int) ([]ContentForAdmin, int, error) {
 	if q.Error != nil {
 		return nil, -1, q.Error
 	}
-	q.Count(&postsCount)
-	for index, _ := range posts {
-		post := posts[index]
-		metaIds := strings.Split(post.MetasCat, ",")
-		for _, metaIdStr := range metaIds {
-			metaId, _ := strconv.ParseUint(metaIdStr, 10, 32)
-			post.Metas = append(post.Metas, metaMap[uint(metaId)])
-		}
-	}
+	db.DB.Table(tbContent).Where("type = ?", "post").Count(&postsCount)
 	return posts, postsCount, nil
 }

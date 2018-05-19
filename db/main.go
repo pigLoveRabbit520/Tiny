@@ -21,6 +21,9 @@ func ConnectAndInit(conf config.Config, models ...interface{}) {
 	dbPrefix := conf.DB.Prefix
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		if defaultTableName == "meta" {
+			defaultTableName = defaultTableName + "s"
+		}
 		return dbPrefix + defaultTableName
 	}
 	Connect(dbUser, dbPass, dbHost, dbPort, dbName)
