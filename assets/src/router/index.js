@@ -48,7 +48,7 @@ export const constantRouterMap = [
                 {
                   path: 'pages',
                   name: 'Pages',
-                  component: () => import('@/views/dashboard/index'),
+                  component: () => import('@/views/page/index'),
                   meta: { title: '独立页面', icon: 'tree' }
                 },
                 {

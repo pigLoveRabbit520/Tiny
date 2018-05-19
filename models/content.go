@@ -61,3 +61,25 @@ func GetPosts(page int) ([]ContentForAdmin, int, error) {
 	db.DB.Table(tbContent).Where("type = ?", "post").Count(&postsCount)
 	return posts, postsCount, nil
 }
+
+type Page struct {
+	Title      string `json:"title"`
+	Slug       string `json:"slug"`
+	ScreenName string `json:"screenName" gorm:"column:screenName"`
+	Created    uint32 `json:"created"`
+}
+
+func GetPages(page int) ([]Page, int, error) {
+	var pages []Page
+	var pagesCount int
+	tbUser := config.Conf.DB.Prefix + "users"
+	tbContent := config.Conf.DB.Prefix + "contents"
+	q := db.DB.Table(tbContent+" c").Select("title, slug, c.created, u.screenName").Joins(fmt.Sprintf("LEFT JOIN %s u ON u.uid = c.authorId", tbUser)).
+		Where("type = ?", "page").
+		Limit(PAGE_SIZE).Offset((page - 1) * PAGE_SIZE).Find(&pages)
+	if q.Error != nil {
+		return nil, -1, q.Error
+	}
+	q.Offset(-1).Limit(-1).Count(&pagesCount)
+	return pages, pagesCount, nil
+}

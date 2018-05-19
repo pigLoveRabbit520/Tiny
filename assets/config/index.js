@@ -26,12 +26,9 @@ module.exports = {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
-        '/admin/public_account/push_urls': {
+        '/admin/pages': {
             target: 'http://localhost:8080',
-            changeOrigin: true,
-            pathRewrite: {
-                '^/public_account/push_urls': '/public_account/push_urls'
-            }
+            changeOrigin: true
         },
         '/admin/public_account_article': {
             target: 'http://localhost:8080',

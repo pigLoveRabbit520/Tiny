@@ -1,57 +1,54 @@
 <template>
-  <div class="app-container">
-      <el-row>
-      </el-row>
+    <div class="app-container">
+        <el-row style="margin-bottom: 20px;">
+          <el-button type="primary">添加文章</el-button>
+        </el-row>
 
-      <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
-              :data="posts"
-              style="width: 100%">
-          <el-table-column
-                  type="index"
-                  label="#"
-                  width="180">
-          </el-table-column>
-          <el-table-column
-                  prop="title"
-                  label="标题">
-          </el-table-column>
-          <el-table-column
-                  prop="screenName"
-                  label="作者">
-          </el-table-column>
-          <el-table-column
-                  prop="meta_cat"
-                  label="分类">
-                <template slot-scope="scope">
-                    <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
-                </template>
-          </el-table-column>
-          <el-table-column
-                  prop="created"
-                  :formatter="getDate"
-                  label="发布日期">
-          </el-table-column>]
-      </el-table>
-
-      <div style="margin-top: 10px; margin-left: -10px">
-          <el-pagination
-                  background
-                  layout="prev, pager, next"
-                  @current-change="handleCurrentChange"
-                  :page-size="pageSize"
-                  :current-page.sync="currentPage"
-                  :total="postsTotal">
-          </el-pagination>
-      </div>
-  </div>
+        <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
+                :data="posts"
+                style="width: 100%">
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    prop="title"
+                    label="标题">
+            </el-table-column>
+            <el-table-column
+                    prop="screenName"
+                    label="作者">
+            </el-table-column>
+            <el-table-column
+                    prop="meta_cat"
+                    label="分类">
+                  <template slot-scope="scope">
+                      <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
+                  </template>
+            </el-table-column>
+            <el-table-column
+                    prop="created"
+                    :formatter="getDate"
+                    label="发布日期">
+            </el-table-column>]
+        </el-table>
+        <div style="margin-top: 10px; margin-left: -10px">
+            <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    @current-change="handleCurrentChange"
+                    :page-size="pageSize"
+                    :current-page.sync="currentPage"
+                    :total="postsTotal">
+            </el-pagination>
+        </div>
+    </div>
 </template>
 
 <script>
 import { getList } from '@/api/post'
-import ElRow from 'element-ui/packages/row/src/row'
 
 export default {
-    components: { ElRow },
     data() {
         return {
             listLoading: true,
@@ -111,7 +108,7 @@ export default {
                 let hours = formatter(date.getHours());
                 let minutes = formatter(date.getMinutes());
                 let seconds = formatter(date.getSeconds());
-                if (now.getFullYear() == year) {
+                if (now.getFullYear() === year) {
                      return `${month}-${day} ${hours}:${minutes}:${seconds}`
                 } else {
                      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`

@@ -2,23 +2,15 @@ import request from '@/utils/request'
 
 export function getList(params) {
     return request({
-        url: '/public_account',
+        url: '/admin/pages',
         method: 'get',
         params
     })
 }
 
-export function addAccount(data) {
+export function addPage(data) {
     return request({
-        url: '/public_account',
-        method: 'post',
-        data: data
-    })
-}
-
-export function updatePushUrls(data) {
-    return request({
-        url: '/public_account/push_urls',
+        url: '/admin/pages',
         method: 'post',
         data: data
     })

@@ -33,6 +33,7 @@ func main() {
 	adminRouter.Use(controllers.UserAuth())
 	{
 		adminRouter.GET("/posts", controllers.GetContents)
+		adminRouter.GET("/pages", controllers.GetPages)
 		adminRouter.GET("/user/info", controllers.GetUserInfo)
 	}
 
