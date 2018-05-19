@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { getList, updatePushUrls, addAccount } from '@/api/public_account'
+import { getList, updatePushUrls, addAccount } from '@/api/page'
 
 export default {
     data() {
@@ -92,10 +92,10 @@ export default {
         }
     },
     created() {
-        this.fetchAccounts()
+        this.posts()
     },
     methods: {
-        fetchAccounts() {
+        posts() {
             this.listLoading = true
             getList().then(response => {
                 this.accounts = response.data

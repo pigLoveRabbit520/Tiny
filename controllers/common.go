@@ -21,7 +21,16 @@ const (
 	AUTH_HEADER_NAME = "X-Auth-Token"
 	USER_ID_KEY      = "uid"
 	USER_DATA_KEY    = "udata"
+	DB_ERR_CODE      = 258
 )
+
+func respond(c *gin.Context, errCode uint, errmsg string, data interface{}) {
+	c.JSON(http.StatusOK, ApiRes{
+		Errcode: errCode,
+		Errmsg:  errmsg,
+		Data:    data,
+	})
+}
 
 func UserAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {

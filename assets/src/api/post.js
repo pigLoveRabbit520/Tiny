@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
     return request({
-        url: '/public_account_article',
+        url: '/admin/posts',
         method: 'get',
         params
     })

@@ -32,7 +32,7 @@ func main() {
 	adminRouter := router.Group("/admin")
 	adminRouter.Use(controllers.UserAuth())
 	{
-		adminRouter.GET("/contents", controllers.GetContents)
+		adminRouter.GET("/posts", controllers.GetContents)
 		adminRouter.GET("/user/info", controllers.GetUserInfo)
 	}
 

@@ -22,12 +22,9 @@ module.exports = {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
-        '/admin/public_account': {
+        '/admin/posts': {
             target: 'http://localhost:8080',
             changeOrigin: true,
-            pathRewrite: {
-                '^/public_account': '/public_account'
-            }
         },
         '/admin/public_account/push_urls': {
             target: 'http://localhost:8080',

@@ -42,7 +42,7 @@ export const constantRouterMap = [
                 {
                   path: 'posts',
                   name: 'Posts',
-                  component: () => import('@/views/dashboard/index'),
+                  component: () => import('@/views/post/index'),
                   meta: { title: '文章', icon: 'table' }
                 },
                 {
