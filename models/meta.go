@@ -10,6 +10,7 @@ type Meta struct {
 	Description string `gorm:"type:varchar(200)" json:"description"`
 	Count       uint   `gorm:"type:int(10) unsigned" json:"count"`
 	Order       uint   `gorm:"type:int(10) unsigned" json:"order"`
+	Parent      uint   `gorm:"type:int(10) unsigned" json:"parent"`
 }
 
 func GetAllCategories() ([]Meta, error) {
@@ -18,6 +19,12 @@ func GetAllCategories() ([]Meta, error) {
 	return metasAll, q.Error
 }
 
-func GetCategories()  {
-	
+func GetCategories(page int) ([]Meta, int, error) {
+	var metas []Meta
+	var count int
+	q := db.DB.Select("mid, name, slug, count, parent").Where("type = ?", "category").
+		Offset((page - 1) * PAGE_SIZE).Limit(PAGE_SIZE).
+		Find(&metas)
+	q.Offset(-1).Limit(-1).Count(&count)
+	return metas, count, q.Error
 }

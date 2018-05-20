@@ -2,22 +2,26 @@
     <div class="app-container">
 
         <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
-                :data="articles"
+                :data="categories"
                 style="width: 100%">
             <el-table-column
                     type="selection"
-                    width="22">
+                    width="33">
             </el-table-column>
             <el-table-column
-                    prop="title"
+                    prop="name"
                     label="名称">
+            </el-table-column>
+                <el-table-column
+                    prop="子分类"
+                    label="子分类">
             </el-table-column>
             <el-table-column
                     prop="slug"
                     label="缩略名">
             </el-table-column>
             <el-table-column
-                    prop="num"
+                    prop="count"
                     label="文章数量">
             </el-table-column>]
         </el-table>
@@ -43,32 +47,30 @@ export default {
         return {
             list: null,
             listLoading: true,
-            postsTotal: 0,
+            categoriesTotal: 0,
             pageSize: 15,
             currentPage: 1,
-            articles: [],
+            categories: [],
         }
     },
     created() {
+        document.title = "分类管理"
         this.getCategories()
     },
     methods: {
         getCategories(params) {
             this.listLoading = true
             getList(params).then(response => {
-                this.articles = response.data.articles
-                this.articlesTotal = response.data.total
+                this.categories = response.data.categories
+                this.categoriesTotal = response.data.total
                 this.listLoading = false
             })
         },
         handleCurrentChange(val) {
-            this.posts({
+            this.getCategories({
                 page: val,
                 accountName: this.article.accountName
             })
-        },
-        onSubmit() {
-            this.posts(this.article)
         }
     }
 }

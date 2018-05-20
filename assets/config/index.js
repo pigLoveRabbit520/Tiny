@@ -30,7 +30,7 @@ module.exports = {
             target: 'http://localhost:8080',
             changeOrigin: true
         },
-        '/admin/public_account_article': {
+        '/admin/categories': {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
