@@ -4,33 +4,31 @@
             <el-button type="primary">添加独立页面</el-button>
         </el-row>
         <el-row>
-            <el-col :span="16">
-                <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
-                          :data="pages"
-                          style="width: 100%">
-                    <el-table-column
-                            type="selection"
-                            width="55">
-                    </el-table-column>
-                    <el-table-column
-                            prop="title"
-                            label="标题">
-                    </el-table-column>
-                    <el-table-column
-                            prop="slug"
-                            label="缩略名">
-                    </el-table-column>
-                    <el-table-column
-                            prop="screenName"
-                            label="作者">
-                    </el-table-column>
-                    <el-table-column
-                            prop="created"
-                            :formatter="getDate"
-                            label="发布日期">
-                    </el-table-column>]
-                </el-table>
-            </el-col>
+          <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
+                    :data="pages"
+                    style="width: 100%">
+            <el-table-column
+              type="selection"
+              width="55">
+            </el-table-column>
+            <el-table-column
+              prop="title"
+              label="标题">
+            </el-table-column>
+            <el-table-column
+              prop="slug"
+              label="缩略名">
+            </el-table-column>
+            <el-table-column
+              prop="screenName"
+              label="作者">
+            </el-table-column>
+            <el-table-column
+              prop="created"
+              :formatter="getDate"
+              label="发布日期">
+            </el-table-column>]
+          </el-table>
         </el-row>
     </div>
 </template>
@@ -53,6 +51,7 @@ export default {
         }
     },
     created() {
+        document.title = "独立页面管理"
         this.getPages()
     },
     methods: {

@@ -17,3 +17,7 @@ func GetAllCategories() ([]Meta, error) {
 	q := db.DB.Select("mid, name").Where("type = ?", "category").Find(&metasAll)
 	return metasAll, q.Error
 }
+
+func GetCategories()  {
+	
+}

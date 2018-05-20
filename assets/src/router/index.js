@@ -60,9 +60,15 @@ export const constantRouterMap = [
                 {
                   path: 'categories',
                   name: 'Categories',
-                  component: () => import('@/views/dashboard/index'),
+                  component: () => import('@/views/category/index'),
                   meta: { title: '分类', icon: 'tree' }
-                }
+                },
+                {
+                  path: 'tags',
+                  name: 'Tags',
+                  component: () => import('@/views/dashboard/index'),
+                  meta: { title: '标签', icon: 'tree' }
+                },
             ]
     },
 
@@ -75,13 +81,13 @@ export const constantRouterMap = [
                 path: 'general',
                 name: 'General',
                 component: () => import('@/views/settings/index'),
-                meta: { title: '常规', icon: 'form' }
+                meta: { title: '基本', icon: 'form' }
             },
             {
               path: 'tree',
               name: 'Tree',
               component: () => import('@/views/dashboard/index'),
-              meta: { title: 'Tree', icon: 'tree' }
+              meta: { title: '评论', icon: 'tree' }
             }
         ]
     },
