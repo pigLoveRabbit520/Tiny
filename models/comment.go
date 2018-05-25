@@ -33,13 +33,19 @@ func GetComments(page int) ([]CommentWithContent, int, error) {
 	prefix := config.Conf.DB.Prefix
 	tbContent := prefix + "contents"
 	tbComment := prefix + "comments"
-	q := db.DB.Table(fmt.Sprintf("%s com", tbComment)).Select(`com.created, author, mail, url, text, ip, status, 
-			parent, con.title, con.cid`).
+	rows, err := db.DB.Table(fmt.Sprintf("%s com", tbComment)).Select(`con.cid, com.created, author, mail, url, com.text, ip, com.status, 
+			com.parent, con.title`).
 		Joins("LEFT JOIN "+tbContent+" con ON con.cid = com.cid").
-		Where("type = ?", "comment").Order("com.created DESC").Limit(PAGE_SIZE).Offset((page - 1) * PAGE_SIZE).
-		Find(&comments)
-	if q.Error != nil {
-		return nil, -1, q.Error
+		Where("com.type = ?", "comment").Order("com.created DESC").Limit(PAGE_SIZE).Offset((page - 1) * PAGE_SIZE).
+		Rows()
+	if err != nil {
+		return nil, -1, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var com CommentWithContent
+		db.DB.ScanRows(rows, &com)
+		comments = append(comments, com)
 	}
 	db.DB.Table(tbComment).Count(&total)
 	return comments, total, nil

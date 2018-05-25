@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func GetComment(c *gin.Context) {
+func GetComments(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 	if page <= 0 {
 		page = 1

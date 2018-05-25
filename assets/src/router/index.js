@@ -54,7 +54,7 @@ export const constantRouterMap = [
                 {
                   path: 'comments',
                   name: 'Comments',
-                  component: () => import('@/views/dashboard/index'),
+                  component: () => import('@/views/comment/index'),
                   meta: { title: '评论', icon: 'tree' }
                 },
                 {

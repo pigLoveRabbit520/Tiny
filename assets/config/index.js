@@ -34,6 +34,10 @@ module.exports = {
             target: 'http://localhost:8080',
             changeOrigin: true,
         },
+        '/admin/comments': {
+            target: 'http://localhost:8080',
+            changeOrigin: true,
+        },
         '/admin/dashboard': {
             target: 'http://localhost:8080',
             changeOrigin: true,
@@ -41,7 +45,7 @@ module.exports = {
         '/admin/settings': {
             target: 'http://localhost:8080',
             changeOrigin: true,
-        }
+        },
     },
 
     // Various Dev Server settings

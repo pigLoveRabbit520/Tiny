@@ -15,10 +15,6 @@ type Meta struct {
 	Parent      uint   `gorm:"type:int(10) unsigned" json:"parent"`
 }
 
-func (Meta) TableName() string {
-	return "metas"
-}
-
 func GetAllCategories() ([]Meta, error) {
 	var metasAll []Meta
 	q := db.DB.Select("mid, name").Where("type = ?", "category").Find(&metasAll)

@@ -9,14 +9,16 @@
                     width="33">
             </el-table-column>
             <el-table-column
-                    prop="name"
+                    prop="author"
                     label="作者">
                 <template slot-scope="scope">
-                    <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
+                    <el-button type="text">{{ scope.row.author }}</el-button>
+                    <a :href="'mailto:' + scope.row.mail" target="_blank">{{ scope.row.mail }}</a>
+                    <span style="color: #999;">{{ scope.row.ip }}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="content"
+                    prop="text"
                     label="内容">
             </el-table-column>
         </el-table>
@@ -49,21 +51,22 @@ export default {
     },
     created() {
         document.title = "分类管理"
-        this.getCategories()
+        this.getComments()
     },
     methods: {
-        getCategories(params) {
+        getComments(params) {
             this.listLoading = true
             getList(params).then(response => {
-                this.comments = response.data.categories
+                this.comments = response.data.comments
                 this.categoriesTotal = response.data.total
+                this.listLoading = false
+            }).then(() => {
                 this.listLoading = false
             })
         },
         handleCurrentChange(val) {
-            this.getCategories({
-                page: val,
-                accountName: this.article.accountName
+            this.getComments({
+                page: val
             })
         }
     }

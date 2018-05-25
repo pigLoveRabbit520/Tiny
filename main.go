@@ -34,6 +34,7 @@ func main() {
 	{
 		adminRouter.GET("/posts", controllers.GetContents)
 		adminRouter.GET("/pages", controllers.GetPages)
+		adminRouter.GET("/comments", controllers.GetComments)
 		adminRouter.GET("/categories", controllers.GetCategories)
 		adminRouter.GET("/user/info", controllers.GetUserInfo)
 	}
