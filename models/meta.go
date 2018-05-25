@@ -1,7 +1,6 @@
 package models
 
 import (
-	"github.com/salamander-mh/SalamanderBlog/config"
 	"github.com/salamander-mh/SalamanderBlog/db"
 )
 
@@ -17,7 +16,7 @@ type Meta struct {
 }
 
 func (Meta) TableName() string {
-	return config.Conf.DB.Prefix + "metas"
+	return "metas"
 }
 
 func GetAllCategories() ([]Meta, error) {

@@ -2,7 +2,7 @@
     <div class="app-container">
 
         <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
-                :data="categories"
+                :data="comments"
                 style="width: 100%">
             <el-table-column
                     type="selection"
@@ -10,20 +10,15 @@
             </el-table-column>
             <el-table-column
                     prop="name"
-                    label="名称">
-            </el-table-column>
-                <el-table-column
-                    prop="子分类"
-                    label="子分类">
-            </el-table-column>
-            <el-table-column
-                    prop="slug"
-                    label="缩略名">
+                    label="作者">
+                <template slot-scope="scope">
+                    <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
+                </template>
             </el-table-column>
             <el-table-column
-                    prop="count"
-                    label="文章数量">
-            </el-table-column>]
+                    prop="content"
+                    label="内容">
+            </el-table-column>
         </el-table>
 
         <div style="margin-top: 10px; margin-left: -10px">
@@ -40,16 +35,16 @@
 </template>
 
 <script>
-import { getList } from '@/api/category'
+import { getList } from '@/api/comment'
 
 export default {
     data() {
         return {
             listLoading: true,
-            categoriesTotal: 0,
+            commentsTotal: 0,
             pageSize: 15,
             currentPage: 1,
-            categories: [],
+            comments: [],
         }
     },
     created() {
@@ -60,7 +55,7 @@ export default {
         getCategories(params) {
             this.listLoading = true
             getList(params).then(response => {
-                this.categories = response.data.categories
+                this.comments = response.data.categories
                 this.categoriesTotal = response.data.total
                 this.listLoading = false
             })

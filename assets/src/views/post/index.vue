@@ -72,6 +72,8 @@ export default {
                 this.setPostCates()
                 this.postsTotal = response.data.total
                 this.listLoading = false
+            }).catch(() => {
+                this.listLoading = false
             })
         },
         handleCurrentChange(val) {

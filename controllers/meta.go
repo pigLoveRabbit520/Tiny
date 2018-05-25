@@ -3,10 +3,11 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/salamander-mh/SalamanderBlog/models"
+	"strconv"
 )
 
 func GetCategories(c *gin.Context) {
-	page := c.GetInt("page")
+	page, _ := strconv.Atoi(c.Query("page"))
 	if page <= 0 {
 		page = 1
 	}
@@ -22,7 +23,7 @@ func GetCategories(c *gin.Context) {
 }
 
 func GetTags(c *gin.Context) {
-	page := c.GetInt("page")
+	page, _ := strconv.Atoi(c.Query("page"))
 	if page <= 0 {
 		page = 1
 	}
