@@ -3,7 +3,7 @@
 
         <el-table v-loading.body="listLoading" element-loading-text="Loading" border stripe
                 :data="comments"
-                style="width: 100%">
+                style="width: 60%">
             <el-table-column
                     type="selection"
                     width="33">
@@ -12,8 +12,8 @@
                     prop="author"
                     label="作者">
                 <template slot-scope="scope">
-                    <el-button type="text">{{ scope.row.author }}</el-button>
-                    <a :href="'mailto:' + scope.row.mail" target="_blank">{{ scope.row.mail }}</a>
+                    <el-button type="text" style="font-weight: bold;">{{ scope.row.author }}</el-button><br>
+                    <a :href="'mailto:' + scope.row.mail" target="_blank">{{ scope.row.mail }}</a><br>
                     <span style="color: #999;">{{ scope.row.ip }}</span>
                 </template>
             </el-table-column>
@@ -30,7 +30,7 @@
                     @current-change="handleCurrentChange"
                     :page-size="pageSize"
                     :current-page.sync="currentPage"
-                    :total="articlesTotal">
+                    :total="commentsTotal">
             </el-pagination>
         </div>
     </div>
@@ -58,7 +58,7 @@ export default {
             this.listLoading = true
             getList(params).then(response => {
                 this.comments = response.data.comments
-                this.categoriesTotal = response.data.total
+                this.commentsTotal = response.data.total
                 this.listLoading = false
             }).then(() => {
                 this.listLoading = false
