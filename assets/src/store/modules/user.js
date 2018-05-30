@@ -47,7 +47,7 @@ const user = {
                     const data = response.data
                     commit('SET_ROLES', ["admin"])
                     commit('SET_NAME', data.name)
-                    commit('SET_AVATAR', data.avatar)
+                    commit('SET_AVATAR', "https://avatars2.githubusercontent.com/u/16663435")
                     resolve(response)
                 }).catch(error => {
                     reject(error)

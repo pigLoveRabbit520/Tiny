@@ -20,6 +20,9 @@
             <el-table-column
                     prop="text"
                     label="内容">
+                    <span style="color: #999;">{{ scope.row.text }}</span>
+                <template slot-scope="scope">
+                </template>
             </el-table-column>
         </el-table>
 
@@ -38,6 +41,7 @@
 
 <script>
 import { getList } from '@/api/comment'
+import { formatTime, parseTime } from '@/utils/index'
 
 export default {
     data() {
