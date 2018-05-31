@@ -14,6 +14,9 @@
             <el-table-column
                     prop="title"
                     label="标题">
+                <template slot-scope="scope">
+                    <router-link :to="{ name: 'EditPost', query: { cid: scope.row.cid }}">{{ scope.row.title }}</router-link>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="screenName"
@@ -22,9 +25,9 @@
             <el-table-column
                     prop="meta_cat"
                     label="分类">
-                  <template slot-scope="scope">
-                      <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
-                  </template>
+                <template slot-scope="scope">
+                    <el-button v-for="cate in scope.row.cates" type="text" size="small">{{ cate.name }}</el-button>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="created"

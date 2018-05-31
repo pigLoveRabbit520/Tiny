@@ -40,34 +40,40 @@ export const constantRouterMap = [
             meta: { title: '管理', icon: 'form' },
             children: [
                 {
-                  path: 'posts',
-                  name: 'Posts',
-                  component: () => import('@/views/post/index'),
-                  meta: { title: '文章', icon: 'table' }
+                    path: 'posts',
+                    name: 'Posts',
+                    component: () => import('@/views/post/index'),
+                    meta: { title: '文章', icon: 'table' }
                 },
                 {
-                  path: 'pages',
-                  name: 'Pages',
-                  component: () => import('@/views/page/index'),
-                  meta: { title: '独立页面', icon: 'tree' }
+                    path: 'post/edit',
+                    name: 'EditPost',
+                    component: () => import('@/views/post/edit'),
+                    hidden: true
                 },
                 {
-                  path: 'comments',
-                  name: 'Comments',
-                  component: () => import('@/views/comment/index'),
-                  meta: { title: '评论', icon: 'tree' }
+                    path: 'pages',
+                    name: 'Pages',
+                    component: () => import('@/views/page/index'),
+                    meta: { title: '独立页面', icon: 'tree' }
                 },
                 {
-                  path: 'categories',
-                  name: 'Categories',
-                  component: () => import('@/views/category/index'),
-                  meta: { title: '分类', icon: 'tree' }
+                    path: 'comments',
+                    name: 'Comments',
+                    component: () => import('@/views/comment/index'),
+                    meta: { title: '评论', icon: 'tree' }
                 },
                 {
-                  path: 'tags',
-                  name: 'Tags',
-                  component: () => import('@/views/dashboard/index'),
-                  meta: { title: '标签', icon: 'tree' }
+                    path: 'categories',
+                    name: 'Categories',
+                    component: () => import('@/views/category/index'),
+                    meta: { title: '分类', icon: 'tree' }
+                },
+                {
+                    path: 'tags',
+                    name: 'Tags',
+                    component: () => import('@/views/dashboard/index'),
+                    meta: { title: '标签', icon: 'tree' }
                 },
             ]
     },
@@ -84,10 +90,10 @@ export const constantRouterMap = [
                 meta: { title: '基本', icon: 'form' }
             },
             {
-              path: 'tree',
-              name: 'Tree',
-              component: () => import('@/views/dashboard/index'),
-              meta: { title: '评论', icon: 'tree' }
+                path: 'tree',
+                name: 'Tree',
+                component: () => import('@/views/dashboard/index'),
+                meta: { title: '评论', icon: 'tree' }
             }
         ]
     },
