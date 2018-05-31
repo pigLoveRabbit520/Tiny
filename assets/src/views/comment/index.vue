@@ -20,8 +20,11 @@
             <el-table-column
                     prop="text"
                     label="内容">
-                    <span style="color: #999;">{{ scope.row.text }}</span>
                 <template slot-scope="scope">
+                    <div class="comment-date">
+                        {{ scope.row.created | formatTime }} 于 <el-button type="text">{{ scope.row.title }}</el-button><br>
+                    </div>
+                    <span style="color: #999;">{{ scope.row.text }}</span>
                 </template>
             </el-table-column>
         </el-table>
@@ -54,7 +57,7 @@ export default {
         }
     },
     created() {
-        document.title = "分类管理"
+        document.title = "评论管理"
         this.getComments()
     },
     methods: {
@@ -73,13 +76,20 @@ export default {
                 page: val
             })
         }
+    },
+    filters: {
+        formatTime: formatTime
     }
 }
 </script>
 
 <style scoped>
 .line{
-  text-align: center;
+    text-align: center;
+}
+.comment-date {
+    font-size: .92857em;
+    color: #999;
 }
 </style>
 
